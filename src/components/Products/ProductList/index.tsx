@@ -1,5 +1,12 @@
-import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
-import React, { useCallback } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  // FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import React, { useCallback, useRef } from 'react';
 import { useGlobalContext } from '../../../provider/GlobalProvider';
 import ProductForm from '../ProductForm';
 import {
@@ -10,6 +17,10 @@ import {
   pixelWidth,
 } from '../../../utils/metrics';
 import { DEVICE } from '../../../constants';
+import { FlashList } from '@shopify/flash-list';
+import DeleteModal from '../../DeleteModal';
+import Button from '../../../ui/Button';
+import ActionPopupModal from '../../ActionPopupModal';
 
 interface ProductListRenderItem {
   item: { name: string; price: number; img: string };
@@ -17,9 +28,13 @@ interface ProductListRenderItem {
 
 const ProductList = () => {
   const state = useGlobalContext();
-  console.log('state', state.products);
+  // console.log('state', state.products);
 
-  console.log('pixelFont(16)', DEVICE.isIos, pixelFont(16));
+  // console.log('pixelFont(16)', DEVICE.isIos, pixelFont(16));
+
+  const moreBtnRef = useRef(null);
+
+  const [open, setOpen] = React.useState(false);
 
   const renderItem = useCallback(
     ({ item }: ProductListRenderItem) => (
@@ -38,38 +53,58 @@ const ProductList = () => {
   );
 
   return (
-    <FlatList
-      data={state.products}
-      //   data={[]}
-      keyExtractor={(item, index) => item.name + index.toString()}
-      renderItem={renderItem}
-      keyboardShouldPersistTaps="handled"
-      ListHeaderComponent={
-        <View>
-          <Text>Product List</Text>
-          <Text>Category size {state.products.length}</Text>
-        </View>
-      }
-      ListEmptyComponent={
-        <View>
-          <Text style={styles.text}>No products found</Text>
-        </View>
-      }
-      ListFooterComponent={<ProductForm />}
-      //   numColumns={2}
-      //   horizontal
-      //   pagingEnabled
-      // showsHorizontalScrollIndicator={false}
-      // showsVerticalScrollIndicator={false}
-      style={{ flex: 1 }}
-      contentContainerStyle={{
-        padding: 10,
-        flex: 1,
-        paddingBottom: 200,
-        // backgroundColor: 'white',
-      }}
-      //   style={{ padding: 10, backgroundColor: 'red' }}
-    />
+    <>
+      <Button
+        title="Open Delete"
+        onPress={() => setOpen(true)}
+        style={{ margin: 10 }}
+      />
+      <TouchableOpacity ref={moreBtnRef} onPress={() => setOpen(true)}>
+        <Text style={{ color: 'blue', marginTop: 10 }}>More</Text>
+      </TouchableOpacity>
+
+      <ActionPopupModal
+        visible={false}
+        btnOptions={moreBtnRef.current}
+        // onClose={() => setShowModal(false)}
+        // onEdit={handleEdit}
+        // onDelete={handleDelete}
+      />
+      <FlashList
+        data={state.products}
+        //   data={[]}
+        // keyExtractor={(item, index) => item.name + index.toString()}
+        renderItem={renderItem}
+        keyboardShouldPersistTaps="handled"
+        estimatedItemSize={200}
+        ListHeaderComponent={
+          <View>
+            <Text style={styles.text}>Product List</Text>
+            <Text style={styles.text}>
+              Category sizə {state.products.length}
+            </Text>
+          </View>
+        }
+        ListEmptyComponent={
+          <View>
+            <Text style={styles.text}>No products found</Text>
+          </View>
+        }
+        // ListFooterComponent={<ProductForm />}
+        //   numColumns={2}
+        //   horizontal
+        //   pagingEnabled
+        // showsHorizontalScrollIndicator={false}
+        // showsVerticalScrollIndicator={false}
+        // style={{ flex: 1 }}
+        contentContainerStyle={{
+          padding: 10,
+          paddingBottom: 200,
+          // backgroundColor: 'white',
+        }}
+        //   style={{ padding: 10, backgroundColor: 'red' }}
+      />
+    </>
   );
 };
 
@@ -87,9 +122,10 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: pixelFont(16),
-    fontWeight: 'bold',
+    fontWeight: '600',
     textAlign: 'center',
     color: 'black',
+    fontFamily: 'Poppins-Bold',
   },
 
   item_img: {

@@ -11,11 +11,17 @@
     "android-upt": "cd android && ./gradlew clean && ./gradlew && cd ..",
     "ios-upt": "cd ios && pod install && pod update && cd ..",
     "start-watchman": "watchman watch-del '.' && watchman watch-project '.' && react-native start",
-    "test": "jest"
+    "test": "jest",
+    "asset": "npx react-native-asset",
+    "apk": "cd android && ./gradlew assembleRelease && cd ..",
+    "generate-splash": "npx react-native-bootsplash generate --platforms android,ios src/assets/images/logo.png  "
   },
   "dependencies": {
+    "@shopify/flash-list": "^1.8.0",
     "react": "18.3.1",
     "react-native": "0.75.5",
+    "react-native-bootsplash": "^6.3.7",
+    "react-native-gesture-handler": "2.23.0",
     "react-native-mmkv": "2.12.2",
     "react-native-svg": "15.11.2",
     "react-native-svg-transformer": "1.5.0"

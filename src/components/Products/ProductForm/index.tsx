@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 import Button from '../../../ui/Button';
 import { useGlobalContext } from '../../../provider/GlobalProvider';
 
-const ProductForm = () => {
+const ProductForm = ({ inputRef }) => {
   const { addProduct } = useGlobalContext();
 
   const [form, setForm] = useState({
@@ -61,6 +61,7 @@ const ProductForm = () => {
     <View style={styles.container}>
       <Text>Form</Text>
       <TextInput
+        ref={inputRef}
         placeholder="Product Img"
         placeholderTextColor="gray"
         cursorColor="blue"
