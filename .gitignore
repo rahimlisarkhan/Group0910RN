@@ -73,6 +73,7 @@ fastlane/screenshots/**/*.png
 *.hmap
 *.ipa
 *.app
+*.apk
 
 # Logs
 *.log

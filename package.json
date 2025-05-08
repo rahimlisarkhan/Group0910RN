@@ -1,5 +1,5 @@
 {
-  "name": "MyApp",
+  "name": "TodoApp",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,7 +13,7 @@
     "start-watchman": "watchman watch-del '.' && watchman watch-project '.' && react-native start",
     "test": "jest",
     "asset": "npx react-native-asset",
-    "apk": "cd android && ./gradlew assembleRelease && cd ..",
+    "apk": "cd android && ./gradlew assembleRelease && cd .. && cp ./android/app/build/outputs/apk/release/app-release.apk ./todo_app_$(date +'%d_%m_%Y-%H:%M').apk",
     "generate-splash": "npx react-native-bootsplash generate --platforms android,ios src/assets/images/logo.png  "
   },
   "dependencies": {
