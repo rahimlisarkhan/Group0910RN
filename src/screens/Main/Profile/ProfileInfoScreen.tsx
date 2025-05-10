@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AppHeader from '../../../components/AppHeader';
@@ -11,6 +11,7 @@ const ProfileInfoScreen = () => {
       <AppHeader title="Profile Information" />
       <View>
         <Text>Profile Info Screen</Text>
+        <TextInput placeholder="Name" />
       </View>
     </View>
   );
