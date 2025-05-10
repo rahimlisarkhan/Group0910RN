@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../screens/Main/HomeScreen';
-import DetailsScreen from '../screens/Main/DetailsScreen';
+import MainStack from './Main';
+import AuthStack from './Auth';
+import { useInitProfile } from '../hooks/useInitProfile';
+import { ROUTES } from './routes';
 
 const Stack = createStackNavigator();
 
 const AppStack = () => {
+  const { userAuthenticated } = useInitProfile();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        {userAuthenticated ? (
+          <Stack.Screen name={ROUTES.MAIN_STACK} component={MainStack} />
+        ) : (
+          <Stack.Screen name={ROUTES.AUTH_STACK} component={AuthStack} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
