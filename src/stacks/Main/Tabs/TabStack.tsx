@@ -5,7 +5,6 @@ import {
 import HomeScreen from '../../../screens/Main/HomeScreen';
 import CalendarScreen from '../../../screens/Main/CalendarScreen';
 import SearchScreen from '../../../screens/Main/SearchScreen';
-import ProfileScreen from '../../../screens/Main/Profile/ProfileScreen';
 import ProfileStack from './ProfileStack';
 import { DEVICE } from '../../../constants';
 import { pixelFont, pixelVertical, pixelWidth } from '../../../utils/metrics';
