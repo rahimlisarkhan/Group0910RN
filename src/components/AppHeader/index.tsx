@@ -10,6 +10,7 @@ interface AppHeaderProps {
   onPressRight?: () => void;
   rightElement?: React.ReactNode;
   leftElement?: React.ReactNode;
+  isGoBack?: boolean;
 }
 
 const AppHeader = ({
@@ -18,6 +19,7 @@ const AppHeader = ({
   leftElement,
   onPressLeft,
   onPressRight,
+  isGoBack = false,
 }: AppHeaderProps) => {
   const { goBack } = useNavigation();
 
@@ -25,7 +27,7 @@ const AppHeader = ({
     <View style={styles.container}>
       <Pressable
         style={{ flex: 1 }}
-        onPress={onPressLeft ?? goBack}
+        onPress={onPressLeft ?? isGoBack ? goBack : undefined}
         hitSlop={20}
       >
         {leftElement ?? <HomeIcon width={20} height={20} />}

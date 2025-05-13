@@ -8,8 +8,6 @@ const DetailsScreen = () => {
   const options = useRoute<any>();
   const { goBack, popToTop } = useNavigation<any>();
 
-  console.log('options', options);
-
   return (
     <View>
       <AppHeader title="Detail Screen" leftElement={<Text>Geri</Text>} />

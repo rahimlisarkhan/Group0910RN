@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 const MainStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName={ROUTES.TAB_STACK}
+      // initialRouteName={ROUTES.TAB_STACK}
       screenOptions={{
         headerShown: false,
       }}

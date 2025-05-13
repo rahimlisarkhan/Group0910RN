@@ -18,6 +18,10 @@ export const ROUTES = {
   MODAL: 'Modal',
   // Tabs
   TAB_STACK: 'TabStack',
+
+  //Drawers
+  HomeStack: 'HomeStack',
+
   // Notifications
   NOTIFY: 'Notify',
   // Settings
