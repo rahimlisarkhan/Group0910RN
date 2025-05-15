@@ -9,7 +9,7 @@ import ProfileStack from './ProfileStack';
 import { pixelFont, pixelVertical, pixelWidth } from '../../../utils/metrics';
 import { HomeIcon } from '../../../assets/icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { HomeStack } from '../../../screens/Main/Home';
+import { HomeStack } from './HomeStack';
 import { ROUTES } from '../../routes';
 import { TabScreenOptions } from '../../options';
 

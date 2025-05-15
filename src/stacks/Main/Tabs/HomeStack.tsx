@@ -1,11 +1,11 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import FeedScreen from '../../../screens/Others/FeedScreen';
 import ArticleScreen from '../../../screens/Others/ArticleScreen';
-import { ROUTES } from '../../../stacks/routes';
-import HomeScreen from '../HomeScreen';
+import { ROUTES } from '../../routes';
+import HomeScreen from '../../../screens/Main/HomeScreen';
 import DrawerContent from '../../../components/DrawerContent';
 import { useEffect } from 'react';
-import { DrawerScreenOptions } from '../../../stacks/options';
+import { DrawerScreenOptions } from '../../options';
 
 const Drawer = createDrawerNavigator();
 
