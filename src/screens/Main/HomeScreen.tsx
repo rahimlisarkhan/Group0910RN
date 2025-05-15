@@ -7,6 +7,7 @@ import {
   DrawerContentComponentProps,
   useDrawerStatus,
 } from '@react-navigation/drawer';
+import TextAnimationFill from '../../components/TextAnimationFill';
 
 const HomeScreen = ({ navigation }: DrawerContentComponentProps) => {
   const { navigate, dispatch } = useNavigation<any>();
@@ -24,6 +25,8 @@ const HomeScreen = ({ navigation }: DrawerContentComponentProps) => {
         // onPressRight={openDrawer}
       />
       <View>
+        <TextAnimationFill></TextAnimationFill>
+
         <Text>HomeScreen</Text>
         <Button
           title="GoDetail"
