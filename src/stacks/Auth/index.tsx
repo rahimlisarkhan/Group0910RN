@@ -3,10 +3,23 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailsScreen from '../../screens/Others/DetailsScreen';
 import SignInScreen from '../../screens/Auth/SignInScreen';
+import ScanScreen from '../../screens/Auth/ScanScreen';
+import { Camera } from 'react-native-vision-camera';
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
+  const cameraPermission = Camera.getCameraPermissionStatus();
+  const microphonePermission = Camera.getMicrophonePermissionStatus();
+
+  console.log(
+    `Re-rendering Navigator. Camera: ${cameraPermission} | Microphone: ${microphonePermission}`
+  );
+
+  const showPermissionsPage =
+    cameraPermission !== 'granted' || microphonePermission === 'not-determined';
+
+  console.log('showPermissionsPage', showPermissionsPage);
   return (
     <Stack.Navigator
       initialRouteName="SignIn"
@@ -52,6 +65,18 @@ const AuthStack = () => {
         //   },
         // }}
         component={DetailsScreen}
+      />
+      <Stack.Screen
+        name="Scan"
+        // options={{
+        //   presentation: 'modal',
+        //   title: 'Detail Screen sehifesi',
+        //   headerShown: false,
+        //   headerStyle: {
+        //     backgroundColor: 'red',
+        //   },
+        // }}
+        component={ScanScreen}
       />
     </Stack.Navigator>
   );

@@ -14,7 +14,7 @@ export const useInitProfile = () => {
       .then(() => {
         // do something after all tasks finished
         console.log('All tasks finished');
-        setUserAuthenticated(true);
+        setUserAuthenticated(false);
       })
       .catch((e) => {
         console.error('Error during initialization:', e);

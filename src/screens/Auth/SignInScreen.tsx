@@ -5,14 +5,24 @@ import AppHeader from '../../components/AppHeader';
 import Button from '../../ui/Button';
 
 const SignInScreen = () => {
+  const { navigate } = useNavigation<any>();
+
   return (
-    <View>
+    <View style={{ flex: 1, padding: 20 }}>
       <View>
         <Text>SignInScreen</Text>
         <TextInput placeholder="Email" />
         <TextInput placeholder="Password" secureTextEntry />
 
-        <Button title="Sign In" onPress={() => {}} />
+        <View style={{ gap: 10, padding: 10 }}>
+          <Button title="Sign In" onPress={() => {}} />
+          <Button
+            title="Scan"
+            onPress={() => {
+              navigate('Scan');
+            }}
+          />
+        </View>
       </View>
     </View>
   );
