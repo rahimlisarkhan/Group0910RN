@@ -1,30 +1,28 @@
 import { useEffect, useState } from 'react';
 
 import BootSplash from 'react-native-bootsplash';
+import { useAuthStore } from '../store/auth/auth.store';
+import { useShallow } from 'zustand/react/shallow';
 
 export const useInitProfile = () => {
-  const [userAuthenticated, setUserAuthenticated] = useState(false);
+  const { getProfile, userAuthenticated } = useAuthStore(
+    useShallow((state) => ({
+      getProfile: state.actions.getProfile,
+      userAuthenticated: state.profile,
+    }))
+  );
 
   useEffect(() => {
-    const init = async () => {
-      // …do multiple sync or async tasks
-    };
-
-    init()
-      .then(() => {
-        // do something after all tasks finished
-        console.log('All tasks finished');
-        setUserAuthenticated(false);
-      })
-      .catch((e) => {
-        console.error('Error during initialization:', e);
-        setUserAuthenticated(false);
-      })
-      .finally(async () => {
-        await BootSplash.hide({ fade: true });
-        console.log('BootSplash has been hidden successfully');
-      });
+    getProfile();
   }, []);
+
+  useEffect(() => {
+    console.log('userAuthenticated', userAuthenticated);
+
+    if (userAuthenticated) {
+      BootSplash.hide({ fade: true });
+    }
+  }, [userAuthenticated]);
 
   return { userAuthenticated };
 };

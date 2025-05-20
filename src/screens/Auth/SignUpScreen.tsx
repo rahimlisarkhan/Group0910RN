@@ -6,15 +6,15 @@ import { useFormik } from 'formik';
 import Button from '../../ui/Button';
 import { LogoIcon } from '../../assets/icons';
 import { useAuthStore } from '../../store/auth/auth.store';
-import { ROUTES } from '../../stacks/routes';
 
-const SignInScreen = () => {
+const SignUpScreen = () => {
   const { navigate } = useNavigation<any>();
 
-  const { authSignIn } = useAuthStore((state) => state.actions);
+  const { authSignUp } = useAuthStore((state) => state.actions);
 
   const formik = useFormik({
     initialValues: {
+      full_name: '',
       email: '',
       password: '',
     },
@@ -23,13 +23,18 @@ const SignInScreen = () => {
     //   password: Yup.string().min(6, 'Too short').required('Password is required'),
     // }),
     onSubmit: async (values) => {
-      const response = await authSignIn(values);
-      if (!response?.result) {
+      console.log('Form submitted:', values);
+
+      const response = await authSignUp(values);
+      if (response?.result) {
+        navigate('SignIn');
+      } else {
         Alert.alert(
           'Error',
-          'An error occurred while signing in. Please try again.'
+          'An error occurred while signing up. Please try again.'
         );
       }
+      // Add your sign-in logic here
     },
   });
 
@@ -39,6 +44,19 @@ const SignInScreen = () => {
         <LogoIcon />
       </View>
       <View style={styles.form}>
+        <Text style={styles.label}>Full name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Full name"
+          placeholderTextColor="#888"
+          onChangeText={formik.handleChange('full_name')}
+          onBlur={formik.handleBlur('full_name')}
+          value={formik.values.full_name}
+          autoCapitalize="none"
+        />
+        {formik.touched.full_name && formik.errors.full_name && (
+          <Text style={styles.error}>{formik.errors.full_name}</Text>
+        )}
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
@@ -70,11 +88,11 @@ const SignInScreen = () => {
       </View>
 
       <View style={styles.buttonGroup}>
-        <Button title="Sign In" onPress={formik.handleSubmit} />
+        <Button title="Register" onPress={formik.handleSubmit} />
         <Button
-          title="Register"
+          title="Sign In"
           onPress={() => {
-            navigate('SignUp');
+            navigate('SignIn');
           }}
         />
       </View>
@@ -82,7 +100,7 @@ const SignInScreen = () => {
   );
 };
 
-export default SignInScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,97 +1,40 @@
 import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import DetailsScreen from '../../screens/Others/DetailsScreen';
 import SignInScreen from '../../screens/Auth/SignInScreen';
-import ScanScreen from '../../screens/Auth/ScanScreen';
-import { Camera } from 'react-native-vision-camera';
+import WelcomeScreen from '../../screens/Auth/WelcomeScreen';
+import SignUpScreen from '../../screens/Auth/SignUpScreen';
+import LocalStorage from '../../store/localStorage';
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
-  const cameraPermission = Camera.getCameraPermissionStatus();
-  const microphonePermission = Camera.getMicrophonePermissionStatus();
+  const onboarding = LocalStorage.getItem('onboarding');
 
-  console.log(
-    `Re-rendering Navigator. Camera: ${cameraPermission} | Microphone: ${microphonePermission}`
-  );
-
-  const showPermissionsPage =
-    cameraPermission !== 'granted' || microphonePermission === 'not-determined';
-
-  console.log('showPermissionsPage', showPermissionsPage);
   return (
     <Stack.Navigator
-      initialRouteName="SignIn"
+      initialRouteName={!onboarding ? 'SignIn' : 'Welcome'}
       screenOptions={{
         headerShown: false,
       }}
     >
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen
         name="SignIn"
         // options={{
         //   animation: 'slide_from_bottom',
         // }}
-        // options={{
-        //   presentation: 'modal',
-        //   title: 'Detail Screen sehifesi',
-        //   headerShown: false,
-        //   headerStyle: {
-        //     backgroundColor: 'red',
-        //   },
-        // }}
+        options={{
+          presentation: 'modal',
+        }}
         component={SignInScreen}
       />
       <Stack.Screen
         name="SignUp"
-        // options={{
-        //   presentation: 'modal',
-        //   title: 'Detail Screen sehifesi',
-        //   headerShown: false,
-        //   headerStyle: {
-        //     backgroundColor: 'red',
-        //   },
-        // }}
-        component={DetailsScreen}
-      />
-      <Stack.Screen
-        name="Otp"
-        // options={{
-        //   presentation: 'modal',
-        //   title: 'Detail Screen sehifesi',
-        //   headerShown: false,
-        //   headerStyle: {
-        //     backgroundColor: 'red',
-        //   },
-        // }}
-        component={DetailsScreen}
-      />
-      <Stack.Screen
-        name="Scan"
-        // options={{
-        //   presentation: 'modal',
-        //   title: 'Detail Screen sehifesi',
-        //   headerShown: false,
-        //   headerStyle: {
-        //     backgroundColor: 'red',
-        //   },
-        // }}
-        component={ScanScreen}
-      />
-      <Stack.Screen
-        name="Details"
-        // options={{
-        //   animation: 'slide_from_bottom',
-        // }}
-        // options={{
-        //   presentation: 'modal',
-        //   title: 'Detail Screen sehifesi',
-        //   headerShown: false,
-        //   headerStyle: {
-        //     backgroundColor: 'red',
-        //   },
-        // }}
-        component={DetailsScreen}
+        options={{
+          animation: 'fade',
+        }}
+        component={SignUpScreen}
       />
     </Stack.Navigator>
   );

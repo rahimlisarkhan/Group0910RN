@@ -2,13 +2,17 @@ import { SafeAreaView, StatusBar } from 'react-native';
 
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import AppStack from './stacks';
-import { globalStyle } from './styles';
+import { colors, globalStyle } from './styles';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={globalStyle.container}>
-      <StatusBar backgroundColor="white" barStyle="dark-content" translucent />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={colors.onBackground}
+        translucent
+      />
       <BottomSheetModalProvider>
         <AppStack />
       </BottomSheetModalProvider>

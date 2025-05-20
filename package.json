@@ -23,7 +23,10 @@
     "@react-navigation/native": "^7.1.8",
     "@react-navigation/stack": "^7.3.1",
     "@shopify/flash-list": "^1.8.0",
+    "axios": "^1.9.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "chalk": "^4.1.2",
+    "formik": "^2.4.6",
     "react": "18.3.1",
     "react-native": "0.75.5",
     "react-native-bootsplash": "^6.3.7",
@@ -37,7 +40,8 @@
     "react-native-svg": "15.11.2",
     "react-native-svg-transformer": "1.5.0",
     "react-native-tab-view": "^4.1.0",
-    "react-native-vision-camera": "^4.6.4"
+    "react-native-vision-camera": "^4.6.4",
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

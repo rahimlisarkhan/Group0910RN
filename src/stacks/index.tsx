@@ -18,6 +18,9 @@ const AppStack = () => {
         screenOptions={{
           headerShown: false,
         }}
+        initialRouteName={
+          userAuthenticated ? ROUTES.MAIN_STACK : ROUTES.AUTH_STACK
+        }
       >
         {userAuthenticated ? (
           <Stack.Screen name={ROUTES.MAIN_STACK} component={MainStack} />

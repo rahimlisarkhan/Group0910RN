@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
+import { colors } from '../../styles';
 
 interface ButtonProps {
   onPress: () => void;
@@ -42,7 +43,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
+    backgroundColor: colors.primary,
     padding: 10,
     borderRadius: 5,
   },
