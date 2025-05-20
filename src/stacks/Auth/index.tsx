@@ -78,6 +78,21 @@ const AuthStack = () => {
         // }}
         component={ScanScreen}
       />
+      <Stack.Screen
+        name="Details"
+        // options={{
+        //   animation: 'slide_from_bottom',
+        // }}
+        // options={{
+        //   presentation: 'modal',
+        //   title: 'Detail Screen sehifesi',
+        //   headerShown: false,
+        //   headerStyle: {
+        //     backgroundColor: 'red',
+        //   },
+        // }}
+        component={DetailsScreen}
+      />
     </Stack.Navigator>
   );
 };

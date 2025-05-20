@@ -4,9 +4,8 @@ import { ScanCamera } from '../../components/ScanCamera';
 
 const ScanScreen = () => {
   return (
-    <View>
+    <View style={{ flex: 1, padding: 20 }}>
       <ScanCamera />
-      <Text>ScanScreen</Text>
     </View>
   );
 };

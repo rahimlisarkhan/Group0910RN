@@ -12,6 +12,12 @@ const DetailsScreen = () => {
     <View>
       <AppHeader title="Detail Screen" leftElement={<Text>Geri</Text>} />
       <Text>DetailsScreen:{options.params?.name}</Text>
+      <Text>
+        Student Info:
+        {options.params?.code
+          ? 'Student is found #' + options.params?.code
+          : 'Student not found'}
+      </Text>
       <Button title="Back" onPress={() => goBack()} />
       {/* <Button title="Back" onPress={() => popToTop()} /> */}
     </View>
