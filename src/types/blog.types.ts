@@ -70,6 +70,36 @@ export type PlatformUser = {
 
 // Axios -> Zuntand-> Account
 
+export interface ICategory {
+  id: number;
+  name: string;
+}
+
+export interface Actors {
+  id: number;
+  name: string;
+  surname: string;
+  img_url: string;
+}
+
+export interface IMovieIdData extends IMovie {
+  actors: Actors[];
+}
+
+export interface IMovie {
+  id: 398;
+  title: string;
+  cover_url: string;
+  fragman: string;
+  watch_url: string;
+  adult: boolean;
+  run_time_min: number;
+  imdb: number;
+  overview: string;
+  created_at: string;
+  category: ICategory;
+}
+
 export interface IProfile {
   id: number;
   full_name: string;

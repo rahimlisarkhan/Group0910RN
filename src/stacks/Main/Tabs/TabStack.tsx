@@ -7,11 +7,12 @@ import CalendarScreen from '../../../screens/Main/CalendarScreen';
 import SearchScreen from '../../../screens/Main/SearchScreen';
 import ProfileStack from './ProfileStack';
 import { pixelFont, pixelVertical, pixelWidth } from '../../../utils/metrics';
-import { HomeIcon } from '../../../assets/icons';
+import { FilmIcon, HomeIcon, TvIcon } from '../../../assets/icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { HomeStack } from './HomeStack';
 import { ROUTES } from '../../routes';
 import { TabScreenOptions } from '../../options';
+import HomeScreen from '../../../screens/Main/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ const TabButton = (
     <Pressable onPress={props.onPress} style={styles.tabButton}>
       {/* {accessibilityState?.selected && <View style={styles.tabLine} />} */}
       <View style={styles.iconContainer}>
-        <Icon color={active ? 'red' : 'blue'} width={24} height={24} />
+        <Icon color={active ? '#5ca4ab' : '#fff'} width={28} height={28} />
         {active && <Text style={styles.tabBarLabelStyle}>{props.tabName}</Text>}
       </View>
     </Pressable>
@@ -40,23 +41,23 @@ export function TabStack() {
   return (
     <Tab.Navigator
       screenOptions={TabScreenOptions}
-      initialRouteName={ROUTES.HomeStack}
+      initialRouteName={ROUTES.HOME}
     >
       <Tab.Screen
-        name={ROUTES.HomeStack}
+        name={ROUTES.HOME}
         options={{
           tabBarButton: (props) => {
             return <TabButton {...props} tabName="Home" icon={HomeIcon} />;
           },
         }}
         // component={HomeScreen}
-        component={HomeStack}
+        component={HomeScreen}
       />
       <Tab.Screen
         name="Calendar"
         options={{
           tabBarButton: (props) => {
-            return <TabButton {...props} tabName="Calendar" icon={HomeIcon} />;
+            return <TabButton {...props} tabName="Movies" icon={FilmIcon} />;
           },
         }}
         component={CalendarScreen}
@@ -65,7 +66,7 @@ export function TabStack() {
         name="Search"
         options={{
           tabBarButton: (props) => {
-            return <TabButton {...props} tabName="Search" icon={HomeIcon} />;
+            return <TabButton {...props} tabName="Series" icon={TvIcon} />;
           },
         }}
         component={SearchScreen}
@@ -91,6 +92,7 @@ const styles = StyleSheet.create({
   tabBarLabelStyle: {
     paddingTop: pixelVertical(5),
     fontSize: pixelFont(10),
+    color: '#fff',
   },
   tabButton: {
     flex: 1,

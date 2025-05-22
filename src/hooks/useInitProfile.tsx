@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react';
 import BootSplash from 'react-native-bootsplash';
 import { useAuthStore } from '../store/auth/auth.store';
 import { useShallow } from 'zustand/react/shallow';
+import LocalStorage from '../store/localStorage';
 
 export const useInitProfile = () => {
+  const [ready, setReady] = useState<boolean>(false);
+
   const { getProfile, userAuthenticated } = useAuthStore(
     useShallow((state) => ({
       getProfile: state.actions.getProfile,
@@ -13,16 +16,19 @@ export const useInitProfile = () => {
   );
 
   useEffect(() => {
-    getProfile();
+    getProfile().finally(() => {
+      BootSplash.hide({ fade: true });
+      setReady(true);
+    });
   }, []);
 
   useEffect(() => {
-    console.log('userAuthenticated', userAuthenticated);
-
-    if (userAuthenticated) {
+    const token = LocalStorage.getItem('access_token');
+    if (token) {
       BootSplash.hide({ fade: true });
+      setReady(true);
     }
-  }, [userAuthenticated]);
+  }, []);
 
-  return { userAuthenticated };
+  return { userAuthenticated, ready };
 };

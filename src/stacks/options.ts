@@ -7,16 +7,16 @@ export const TabScreenOptions: BottomTabNavigationOptions = {
   headerShown: false,
   animation: 'shift',
   tabBarHideOnKeyboard: true,
-  tabBarActiveTintColor: 'blue',
+  tabBarActiveTintColor: '#fff',
   tabBarInactiveTintColor: '#8782ee',
   tabBarStyle: {
     height: pixelVertical(DEVICE.isIos ? 90 : 80),
     paddingTop: 10,
     elevation: 0,
     shadowOpacity: 0,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 32,
-    borderTopRightRadius: 32,
+    backgroundColor: '#242629',
+    // borderTopLeftRadius: 32,
+    // borderTopRightRadius: 32,
   },
 };
 

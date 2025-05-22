@@ -10,7 +10,11 @@ import { ROUTES } from './routes';
 const Stack = createStackNavigator();
 
 const AppStack = () => {
-  const { userAuthenticated } = useInitProfile();
+  const { userAuthenticated, ready } = useInitProfile();
+
+  if (!ready) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
@@ -18,9 +22,6 @@ const AppStack = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName={
-          userAuthenticated ? ROUTES.MAIN_STACK : ROUTES.AUTH_STACK
-        }
       >
         {userAuthenticated ? (
           <Stack.Screen name={ROUTES.MAIN_STACK} component={MainStack} />

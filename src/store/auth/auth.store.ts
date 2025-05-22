@@ -8,11 +8,27 @@ import LocalStorage from '../localStorage';
 const initial: Omit<IAuthStore, 'actions'> = {
   loading: false,
   profile: null,
+  movies: [],
+  movie: null,
 };
 
 export const useAuthStore = create<IAuthStore>((set) => ({
   ...initial,
   actions: {
+    getMovie: async (id: number) => {
+      set({ loading: true });
+      const response = await AuthAPI.getMovieId(id);
+      set({ loading: false, movie: response.data });
+      return response;
+    },
+
+    getMovies: async () => {
+      set({ loading: true });
+      const response = await AuthAPI.getMovies();
+      set({ loading: false, movies: response.data });
+      return response;
+    },
+
     getProfile: async () => {
       set({ loading: true });
       const response = await AuthAPI.getProfile();

@@ -42,7 +42,7 @@ const WelcomeScreen = ({ navigation }: any) => {
       flatListRef.current.scrollToIndex({ index: currentIndex + 1 });
     } else {
       navigation.navigate(ROUTES.SIGN_IN); // Change to your actual route
-      LocalStorage.setItem('onboarding', 'true');
+      // LocalStorage.setItem('onboarding', 'true');
     }
   };
 

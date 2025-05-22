@@ -4,16 +4,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignInScreen from '../../screens/Auth/SignInScreen';
 import WelcomeScreen from '../../screens/Auth/WelcomeScreen';
 import SignUpScreen from '../../screens/Auth/SignUpScreen';
-import LocalStorage from '../../store/localStorage';
+// import LocalStorage from '../../store/localStorage';
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
-  const onboarding = LocalStorage.getItem('onboarding');
+  // const onboarding = LocalStorage.getItem('onboarding');
 
   return (
     <Stack.Navigator
-      initialRouteName={!onboarding ? 'SignIn' : 'Welcome'}
+      // initialRouteName={onboarding ? 'SignIn' : 'Welcome'}
+      initialRouteName={'Welcome'}
       screenOptions={{
         headerShown: false,
       }}

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import chalk from 'chalk'; // npm install chalk (v4 for CommonJS support)
 import LocalStorage from '../store/localStorage';
+import { useAuthStore } from '../store/auth/auth.store';
 
 const BASE_URL = 'https://api.sarkhanrahimli.dev/api/filmalisa/';
 
@@ -76,5 +77,14 @@ instance.interceptors.response.use(
     return error;
   }
 );
+
+export const logout = () => {
+  // Remove token from local storage
+  LocalStorage.removeItem('access_token');
+  // Clear Authorization header from instance (assumes Axios or similar)
+  instance.defaults.headers.common['Authorization'] = null;
+  // Reset auth state
+  useAuthStore.getState().actions.reset();
+};
 
 export default instance;
