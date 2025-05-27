@@ -1,4 +1,5 @@
 import messaging from '@react-native-firebase/messaging';
+import axios from 'axios';
 import { Platform, PermissionsAndroid } from 'react-native';
 
 export const requestFCMPermission = async (): Promise<boolean> => {
@@ -25,6 +26,7 @@ export const getFcmToken = async (): Promise<string | null> => {
 
     const token = await messaging().getToken();
     console.log('FCM Token:', token);
+
     return token;
   } catch (error) {
     console.error('Failed to get FCM token:', error);
