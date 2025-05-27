@@ -24,6 +24,23 @@ target 'MyApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+    # Modular headers for specific pods | DON'T REMOVE
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseInstallations', :modular_headers => true
+  pod 'GoogleDataTransport', :modular_headers => true
+  pod 'nanopb', :modular_headers => true
+  pod 'FirebaseCoreExtension', :modular_headers => true
+  pod 'FirebaseFirestore', :modular_headers => true
+  pod 'FirebaseFirestoreInternal', :modular_headers => true
+  # pod 'FirebaseCrashlytics', :modular_headers => true
+  # pod 'FirebaseSessions', :modular_headers => true
+  # pod 'FirebaseABTesting', :modular_headers => true
+  # pod 'FirebaseRemoteConfig', :modular_headers => true
+  # pod 'SPTPersistentCache', :modular_headers => true
+  # pod 'DVAssetLoaderDelegate', :modular_headers => true
+
   target 'MyAppTests' do
     inherit! :complete
     # Pods for testing

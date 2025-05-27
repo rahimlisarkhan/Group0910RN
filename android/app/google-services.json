@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "473169948998",
+    "project_id": "grouprn-ccca1",
+    "storage_bucket": "grouprn-ccca1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473169948998:android:ff32b13094b1701f1bf547",
+        "android_client_info": {
+          "package_name": "com.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCzilSszGLKo8rxnGhWyltbYJ6dVaO_Zw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

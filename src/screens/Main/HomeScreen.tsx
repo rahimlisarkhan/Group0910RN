@@ -15,6 +15,11 @@ import { useEffect } from 'react';
 import { ROUTES } from '../../stacks/routes';
 import { Logout } from '../../assets/icons';
 import { logout } from '../../utils/instance';
+import {
+  createData,
+  getAlldatas,
+  getDataById,
+} from '../../utils/firestoreUtils';
 
 const HomeScreen = () => {
   const { navigate } = useNavigation<any>();
@@ -28,6 +33,22 @@ const HomeScreen = () => {
 
   useEffect(() => {
     getMovies();
+
+    getAlldatas('products').then((products) => {
+      console.log('Products:', products);
+    });
+
+    // createData('products', {
+    //   name: 'Sample Product',
+    //   price: 19.99,
+    //   description: 'This is a sample product description.',
+    // })
+    //   .then((data) => {
+    //     console.log('Created Product:', data);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error creating product:', error);
+    //   });
   }, []);
 
   // const [refreshing, setRefreshing] = useState(false);
