@@ -5,6 +5,8 @@ import AppStack from './stacks';
 import { colors, globalStyle } from './styles';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
+import './locales/IMLocalize'; // Ensure localization is initialized
+
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={globalStyle.container}>

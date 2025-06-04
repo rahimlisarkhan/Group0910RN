@@ -1,0 +1,5 @@
+{
+  "decline": "An error occurred during payment!",
+  "empty_bank_card": "Unfortunately, you currently have no added bank cards 😔",
+  "go_back": "Go back"
+}

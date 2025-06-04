@@ -25,6 +25,9 @@ export const useAuthStore = create<IAuthStore>((set) => ({
     getMovies: async () => {
       set({ loading: true });
       const response = await AuthAPI.getMovies();
+
+      console.log('response', response);
+
       set({ loading: false, movies: response.data });
       return response;
     },

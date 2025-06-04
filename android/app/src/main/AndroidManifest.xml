@@ -12,10 +12,10 @@
     android:theme="@style/AppTheme"
     android:supportsRtl="true">
 
-     <meta-data
+     <!-- <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/my_custom_color"
-            tools:replace="android:resource" />
+            tools:replace="android:resource" /> -->
 
     <activity
       android:name=".MainActivity"

@@ -24,8 +24,7 @@ export const useInitProfile = () => {
   }, []);
 
   useEffect(() => {
-    getFcmToken();
-
+    getFcmToken().then((token) => {});
     const token = LocalStorage.getItem('access_token');
     if (token) {
       BootSplash.hide({ fade: true });

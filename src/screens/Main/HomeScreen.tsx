@@ -11,18 +11,26 @@ import { useAuthStore } from '../../store/auth/auth.store';
 import { useShallow } from 'zustand/react/shallow';
 import { FlashList } from '@shopify/flash-list';
 import FastImage from 'react-native-fast-image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ROUTES } from '../../stacks/routes';
 import { Logout } from '../../assets/icons';
 import { logout } from '../../utils/instance';
 import {
   createData,
-  getAlldatas,
+  getAllData,
   getDataById,
 } from '../../utils/firestoreUtils';
+import { pixelHorizontal, pixelVertical } from '../../utils/metrics';
+import Button from '../../ui/Button';
+import { useTranslation } from 'react-i18next';
+import LocalStorage from '../store/localStorage';
 
 const HomeScreen = () => {
   const { navigate } = useNavigation<any>();
+
+  const { t, i18n } = useTranslation();
+
+  const [data, setData] = useState<any[]>([]);
 
   const { getMovies, movies } = useAuthStore(
     useShallow((state) => ({
@@ -31,11 +39,41 @@ const HomeScreen = () => {
     }))
   );
 
-  useEffect(() => {
-    getMovies();
+  const changeLanguage = async (locale: Lang) => {
+    i18n.changeLanguage(locale);
+    LocalStorage.setItem('localization', locale);
+  };
 
-    getAlldatas('products').then((products) => {
+  console.log('movies', movies);
+
+  const handleCreateData = () => {
+    const randomId = Math.random().toString(36).substring(2, 15);
+    const randomPrice = (Math.random() * 100).toFixed(2);
+
+    const payload = {
+      img_url:
+        'https://images.pexels.com/photos/12715153/pexels-photo-12715153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      name: 'Sample Product ' + randomId,
+      price: randomPrice,
+      description: 'This is a sample product description.',
+    };
+
+    createData('products', payload)
+      .then((data) => {
+        console.log('Created Product:', data);
+        setData((prevData) => [...prevData, data]);
+      })
+      .catch((error) => {
+        console.error('Error creating product:', error);
+      });
+  };
+
+  useEffect(() => {
+    // getMovies();
+    getAllData('products').then((products) => {
       console.log('Products:', products);
+
+      setData(products);
     });
 
     // createData('products', {
@@ -72,14 +110,27 @@ const HomeScreen = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Text style={styles.title}>Besteller Movies</Text>
+        <Text style={styles.title}>Besteller Movies {t('go_back')}</Text>
+        <Button
+          title="Add Data"
+          onPress={handleCreateData}
+          color={colors.primary}
+        />
+
+        <TouchableOpacity onPress={() => changeLanguage('en')}>
+          <Text style={{ color: '#fff' }}>EN</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => changeLanguage('az')}>
+          <Text style={{ color: '#fff' }}>AZ</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={logout}>
           <Logout color="#fff" />
         </TouchableOpacity>
       </View>
 
       <FlashList
-        data={movies}
+        data={data}
         numColumns={2}
         ListEmptyComponent={
           <View>
@@ -109,12 +160,15 @@ const HomeScreen = () => {
             <FastImage
               resizeMode="cover"
               style={styles.image}
-              source={{ uri: item.cover_url }}
+              source={{
+                uri: item.img_url,
+              }}
             />
             <View style={styles.cardFooter}>
-              <Text style={styles.cardTitle}>{item.title}</Text>
-              <Text style={styles.imdb}>{item.imdb}</Text>
+              <Text style={styles.cardTitle}>{item.name}</Text>
+              <Text style={styles.imdb}>{item.price}</Text>
             </View>
+            <Text style={styles.cardTitle}>{item.description}</Text>
           </TouchableOpacity>
         )}
         estimatedItemSize={300}
@@ -127,6 +181,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.onBackground,
+    paddingVertical: pixelVertical(20),
+    paddingHorizontal: pixelHorizontal(16),
   },
   title: {
     color: '#fff',

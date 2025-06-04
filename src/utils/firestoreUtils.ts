@@ -1,25 +1,18 @@
 import firestore from '@react-native-firebase/firestore';
 
-// CREATE data
-export const createData = async (col: string, dataData: any) => {
-  try {
-    const dataCollection = firestore().collection(col);
-
-    const docRef = await dataCollection.add(dataData);
-    return { id: docRef.id, ...dataData };
-  } catch (error) {
-    console.error('Error creating data:', error);
-    throw error;
-  }
-};
-
 // READ all datas
-export const getAlldatas = async (col: string) => {
+//? 'products/waste'
+export const getAllData = async (col: string) => {
   try {
     const dataCollection = firestore().collection(col);
 
     const snapshot = await dataCollection.get();
-    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+    const data = snapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+
+    return data;
   } catch (error) {
     console.error('Error getting datas:', error);
     throw error;
@@ -38,6 +31,19 @@ export const getDataById = async (col: string, id: string) => {
     }
   } catch (error) {
     console.error('Error getting data:', error);
+    throw error;
+  }
+};
+
+// CREATE data
+export const createData = async (col: string, dataData: any) => {
+  try {
+    const dataCollection = firestore().collection(col);
+
+    const docRef = await dataCollection.add(dataData);
+    return { id: docRef.id, ...dataData };
+  } catch (error) {
+    console.error('Error creating data:', error);
     throw error;
   }
 };

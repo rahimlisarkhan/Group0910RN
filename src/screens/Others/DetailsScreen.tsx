@@ -6,10 +6,13 @@ import { colors } from '../../styles'; // adjust if your theme exports different
 import { useAuthStore } from '../../store/auth/auth.store';
 import { useShallow } from 'zustand/react/shallow';
 import FastImage from 'react-native-fast-image';
+import { getDataById } from '../../utils/firestoreUtils';
 
 const MovieDetailsScreen = () => {
   const { goBack } = useNavigation<any>();
   const options = useRoute<any>();
+
+  const [data, setData] = React.useState<any>();
 
   // Retrieve movie data and action from the store.
   const { movie, getMovie } = useAuthStore(
@@ -23,12 +26,17 @@ const MovieDetailsScreen = () => {
 
   useEffect(() => {
     if (movieId) {
-      getMovie(movieId);
+      // getMovie(movieId);
+
+      getDataById('products', movieId).then((product) => {
+        console.log('Product by ID:', product);
+        setData(product);
+      });
     }
   }, [movieId]);
 
   // In case movie data is not available, you might want to show a loading state.
-  if (!movie) {
+  if (!data) {
     return (
       <View style={styles.loadingContainer}>
         <Text style={styles.loadingText}>Loading movie details...</Text>
@@ -40,43 +48,16 @@ const MovieDetailsScreen = () => {
     <ScrollView style={styles.container}>
       <View style={styles.coverWrapper}>
         <FastImage
-          source={{ uri: movie.cover_url }}
+          source={{ uri: data.img_url }}
           resizeMode="cover"
           style={styles.coverImage}
         />
       </View>
       <View style={styles.content}>
-        <Text style={styles.title}>{movie.title}</Text>
-        {movie.imdb && <Text style={styles.rating}>IMDB: {movie.imdb}</Text>}
-        <Text style={styles.overview}>{movie.overview}</Text>
-        <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>Runtime:</Text>
-          <Text style={styles.infoValue}>{movie.run_time_min} min</Text>
-        </View>
-        {movie.category && (
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>Category:</Text>
-            <Text style={styles.infoValue}>{movie.category.name}</Text>
-          </View>
-        )}
-        {movie.actors && movie.actors.length > 0 && (
-          <View style={styles.actorsSection}>
-            <Text style={styles.sectionTitle}>Cast</Text>
-            {movie.actors.map((actor: any) => (
-              <View key={actor.id} style={styles.actorItem}>
-                <Image
-                  source={{ uri: actor.img_url }}
-                  style={styles.actorImage}
-                />
-                <View style={styles.actorInfo}>
-                  <Text style={styles.actorName}>
-                    {actor.name} {actor.surname}
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </View>
-        )}
+        <Text style={styles.title}>{data.name}</Text>
+        <Text style={styles.rating}>{data.price}</Text>
+        <Text style={styles.overview}>{data.description}</Text>
+
         <View style={styles.buttonWrapper}>
           <Button title="Back" onPress={goBack} />
         </View>
