@@ -19,6 +19,8 @@ instance.interceptors.request.use(
       'access_token'
     )}`;
 
+    config.headers['Accept-Language'] = LocalStorage.getItem('localization');
+
     if (method === 'POST') {
       console.log(chalk.green(`[POST] ${url}`));
       console.log(

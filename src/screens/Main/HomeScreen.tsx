@@ -15,6 +15,8 @@ import { useEffect, useState } from 'react';
 import { ROUTES } from '../../stacks/routes';
 import { Logout } from '../../assets/icons';
 import { logout } from '../../utils/instance';
+import { DevSettings } from 'react-native';
+
 import {
   createData,
   getAllData,
@@ -23,7 +25,7 @@ import {
 import { pixelHorizontal, pixelVertical } from '../../utils/metrics';
 import Button from '../../ui/Button';
 import { useTranslation } from 'react-i18next';
-import LocalStorage from '../store/localStorage';
+import LocalStorage from '../../store/localStorage';
 
 const HomeScreen = () => {
   const { navigate } = useNavigation<any>();
@@ -39,9 +41,10 @@ const HomeScreen = () => {
     }))
   );
 
-  const changeLanguage = async (locale: Lang) => {
+  const changeLanguage = async (locale: 'az' | 'en') => {
     i18n.changeLanguage(locale);
     LocalStorage.setItem('localization', locale);
+    DevSettings.reload();
   };
 
   console.log('movies', movies);
@@ -117,15 +120,17 @@ const HomeScreen = () => {
           color={colors.primary}
         />
 
+        <TouchableOpacity onPress={logout}>
+          <Logout color="#fff" />
+        </TouchableOpacity>
+      </View>
+
+      <View>
         <TouchableOpacity onPress={() => changeLanguage('en')}>
           <Text style={{ color: '#fff' }}>EN</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => changeLanguage('az')}>
           <Text style={{ color: '#fff' }}>AZ</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={logout}>
-          <Logout color="#fff" />
         </TouchableOpacity>
       </View>
 
