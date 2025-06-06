@@ -1,0 +1,47 @@
+
+
+###############################
+"Create key store"
+
+1. **Generate a Keystore**
+   Before you can publish your app, you need to sign it with a keystore. This is important for security and to prove the authenticity of your app updates. You can generate a keystore using the `keytool` command that comes with the Java Development Kit (JDK).
+   ```
+   keytool -genkey -v -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+   ```
+   This command will prompt you for various details. Make sure to remember the keystore password, key alias, and key password that you provide. Keep the generated `my-release-key.keystore` file secure.
+2. **Configure Gradle**:
+   In your React Native app's `android/app` directory, you need to configure the `build.gradle` file to use the keystore for signing the release APK. Open the `android/app/build.gradle` file and add the signing configuration:
+   ```gradle
+   android {
+       ...
+       signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
+       }
+       buildTypes {
+           release {
+               signingConfig signingConfigs.release
+               ...
+           }
+       }
+   }
+   ```
+   Replace `path/to/my-release-key.keystore` with the actual path to your keystore, and provide the relevant passwords and aliases.
+3. **Generate Release APK** (.aab):
+   Run the following command to generate a release APK:
+   ```sh
+   cd android && ./gradlew bundleRelease
+   ```
+   The generated APK files can be found in `android/app/build/outputs/bundle/release/`.
+
+4.**android/gradle.properties**
+MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore
+MYAPP_UPLOAD_KEY_ALIAS=my-key-alias
+MYAPP_UPLOAD_STORE_PASSWORD=example
+MYAPP_UPLOAD_KEY_PASSWORD=example
